@@ -15,3 +15,21 @@ export const getTopics = () =>{
         return data.topics;
     })
 }
+
+export const getSingleArticle = (id) => {
+    return marketAPI.get(`/api/articles/${id}`).then(({data}) =>{
+        return data.article;
+    })
+}
+
+export const getSingleArticleComments = (id) => {
+    return marketAPI.get(`/api/articles/${id}/comments`).then(({data}) =>{
+        return data.article_comments;
+    })
+}
+
+export const patchArticle = (id, data) => {
+    return marketAPI.patch(`/api/articles/${id}/`, data).then(({data}) =>{
+        return data.article;
+    })
+}
