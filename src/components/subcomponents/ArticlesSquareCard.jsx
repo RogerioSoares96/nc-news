@@ -17,7 +17,7 @@ function ArticlesSquareCard ({ article }) {
                         <ListGroup.Item>Comments : {articleCardDetails.comment_count}</ListGroup.Item>
                         <ListGroup.Item>Date : {articleCardDetails.created_at.substring(0, 10)}</ListGroup.Item>
                     </ListGroup>
-                    <Button variant="dark"><Link style={{ textDecoration: 'none', color: "white" }} to={`/id/${article.article_id}`}>Read more...</Link></Button>
+                    <Button variant="dark"><Link style={{ textDecoration: 'none', color: "white" }} to={`/articles/${article.article_id}`}>Read more...</Link></Button>
                 </Card.Body>
             </Card>
     )

@@ -27,3 +27,9 @@ export const getSingleArticleComments = (id) => {
         return data.article_comments;
     })
 }
+
+export const patchArticle = (id, data) => {
+    return marketAPI.patch(`/api/articles/${id}/`, data).then(({data}) =>{
+        return data.article;
+    })
+}

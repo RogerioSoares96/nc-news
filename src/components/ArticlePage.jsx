@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {getSingleArticleComments, getSingleArticle} from "../utils/api";
+import { getSingleArticle } from "../utils/api";
 import {Image, Card, Button, Container, Badge, Spinner} from 'react-bootstrap'
-
+import CommentsList from "./subcomponents/CommentsList";
 
 function ArticlePage () {
 
     const { id } = useParams();
     const [isDataLoading, setIsDataLoading] = useState(false);
-    const [isCommentsLoading, setIsCommentsLoading] = useState(false);
     const [articleData, setArticleData] = useState({});
-    const [articleComments, setArticleComments] = useState([]);
 
     useEffect(() => {
         setIsDataLoading(true);
@@ -19,14 +17,6 @@ function ArticlePage () {
             setIsDataLoading(false);
         })
     }, [])
-    useEffect(() => {
-        setIsCommentsLoading(true);
-        getSingleArticleComments(id).then((articleCommentsFromApi) => {
-            setArticleComments(articleCommentsFromApi);
-            setIsCommentsLoading(false);
-        })
-    }, [])
-    console.log(articleComments)
     return (
         <Container>
             {isDataLoading ? 
@@ -43,8 +33,10 @@ function ArticlePage () {
                         {articleData.body}
                     </Card.Text>
                     <Card.Text>
-                        Votes : {articleData.votes}
+                        Votes : <Badge bg="secondary">{articleData.votes}</Badge>
                     </Card.Text>
+                    <Button variant="dark">Add a vote 👍</Button>
+                    <br></br>
                     <Card.Text>
                         By : {articleData.author}
                     </Card.Text>
@@ -54,28 +46,7 @@ function ArticlePage () {
                 </Card.Body>
             </Card>)
             }
-            {isCommentsLoading ?
-                (<div>
-                <h1>Loading...</h1>
-                <Spinner animation="border" size="xxl"/>
-                </div>) : 
-                (articleComments.map((comment) => {
-                    return (
-                        <Card>
-                        <Card.Header as="h5">Comment</Card.Header>
-                        <Card.Body>
-                          <Card.Title>{comment.body}</Card.Title>
-                          <Card.Text>
-                            By : {comment.author}
-                          </Card.Text>
-                          <Button variant="dark">Vote</Button>
-                          <Badge bg="secondary">Number of votes : {comment.votes}</Badge>
-                        </Card.Body>
-                        </Card>
-                    )
-                }))
-            }
-            <Button variant="dark">Post a comment</Button>
+            <CommentsList id={id}/>
         </Container>        
     )
 }
