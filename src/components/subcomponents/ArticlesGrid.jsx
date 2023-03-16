@@ -1,13 +1,22 @@
 import ArticlesSquareCard from "./ArticlesSquareCard";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import {Spinner, Col, Row, Container} from "react-bootstrap";
+import { useState, useEffect } from "react";
 
-function ArticlesGrid ({ articlesList }) {
+function ArticlesGrid ({ articlesList, isLoading }) {
+    const [isLoaded, setIsLoaded] = useState(isLoading)
+    useEffect(() => {
+        setIsLoaded(isLoading)
+    }, [isLoading])
     return (
         <div>
             <h1>This is Articles Grid</h1>
-            <Container>
+            {isLoaded ? (
+            <div>
+                <h1>Loading...</h1>
+                <Spinner animation="border" size="xxl"/>
+            </div>
+            ) :
+            (<Container>
                 <Row>
                 {articlesList.map((article, index) => {
                     return (
@@ -15,7 +24,8 @@ function ArticlesGrid ({ articlesList }) {
                     )
                 })}
                 </Row>
-            </Container>
+            </Container>)
+            }
         </div>
     )
 }

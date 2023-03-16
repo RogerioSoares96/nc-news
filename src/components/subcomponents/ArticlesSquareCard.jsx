@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Card from "react-bootstrap/card"
+import Card from "react-bootstrap/Card"
 import Button from "react-bootstrap/Button"
 import ListGroup  from "react-bootstrap/ListGroup";
 
@@ -15,7 +15,7 @@ function ArticlesSquareCard ({ article }) {
                     <ListGroup className="list-group-flush">
                         <ListGroup.Item>Votes : {articleCardDetails.votes}</ListGroup.Item>
                         <ListGroup.Item>Comments : {articleCardDetails.comment_count}</ListGroup.Item>
-                        <ListGroup.Item>Date : {articleCardDetails.created_at}</ListGroup.Item>
+                        <ListGroup.Item>Date : {articleCardDetails.created_at.substring(0, 10)}</ListGroup.Item>
                     </ListGroup>
                     <Button variant="primary">Read more...</Button>
                 </Card.Body>
