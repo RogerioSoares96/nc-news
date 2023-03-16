@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getSingleArticle } from "../utils/api";
+import { getSingleArticle, patchArticle } from "../utils/api";
 import {Image, Card, Button, Container, Badge, Spinner} from 'react-bootstrap'
 import CommentsList from "./subcomponents/CommentsList";
 
@@ -9,6 +9,7 @@ function ArticlePage () {
     const { id } = useParams();
     const [isDataLoading, setIsDataLoading] = useState(false);
     const [articleData, setArticleData] = useState({});
+    const [articlePatch, setArticlePatch] = useState({})
 
     useEffect(() => {
         setIsDataLoading(true);
@@ -17,6 +18,11 @@ function ArticlePage () {
             setIsDataLoading(false);
         })
     }, [])
+    useEffect(() => {
+        patchArticle(id, articlePatch.data).then((articleFromApi) => {
+            setArticleData(articleFromApi)
+        })
+      }, [articlePatch])
     return (
         <Container>
             {isDataLoading ? 
@@ -35,7 +41,7 @@ function ArticlePage () {
                     <Card.Text>
                         Votes : <Badge bg="secondary">{articleData.votes}</Badge>
                     </Card.Text>
-                    <Button variant="dark">Add a vote 👍</Button>
+                    <Button variant="dark" onClick={() => {setArticlePatch({id : id, data : { inc_votes : 1}})}}>Add a vote 👍</Button>
                     <br></br>
                     <Card.Text>
                         By : {articleData.author}
