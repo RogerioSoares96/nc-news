@@ -2,11 +2,11 @@ import { useState } from "react";
 import Card from "react-bootstrap/Card"
 import Button from "react-bootstrap/Button"
 import ListGroup  from "react-bootstrap/ListGroup";
+import { Link } from "react-router-dom";
 
 function ArticlesSquareCard ({ article }) {
     const [articleCardDetails, setArticleCardDetails] = useState(article)
     return (
-        <div>
             <Card>
                 <Card.Img variant="top" src={`${articleCardDetails.article_img_url}`} /> 
                 <Card.Body>
@@ -17,10 +17,9 @@ function ArticlesSquareCard ({ article }) {
                         <ListGroup.Item>Comments : {articleCardDetails.comment_count}</ListGroup.Item>
                         <ListGroup.Item>Date : {articleCardDetails.created_at.substring(0, 10)}</ListGroup.Item>
                     </ListGroup>
-                    <Button variant="primary">Read more...</Button>
+                    <Button variant="dark"><Link style={{ textDecoration: 'none', color: "white" }} to={`/id/${article.article_id}`}>Read more...</Link></Button>
                 </Card.Body>
             </Card>
-        </div>
     )
 }
 

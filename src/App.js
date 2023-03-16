@@ -1,8 +1,10 @@
 import './App.css';
 import ArticlesListPage from './components/ArticlesListPage';
 import HeaderNav from './components/HeaderNav';
+import ArticlePage from './components/ArticlePage';
 import { useState, useEffect } from 'react';
 import { getArticles } from './utils/api';
+import { Route, Routes } from 'react-router-dom';
 
 
 function App() {
@@ -19,7 +21,10 @@ function App() {
   return (
     <main className="App">
       <HeaderNav />
-      <ArticlesListPage articlesList={articlesList} isLoading={isLoading}/>
+      <Routes>
+        <Route path='/' element={<ArticlesListPage articlesList={articlesList} isLoading={isLoading}/>} />
+        <Route path='id/:id' element={<ArticlePage />} />
+      </Routes>
     </main>
   );
 }

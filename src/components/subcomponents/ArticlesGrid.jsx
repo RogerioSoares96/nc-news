@@ -8,8 +8,7 @@ function ArticlesGrid ({ articlesList, isLoading }) {
         setIsLoaded(isLoading)
     }, [isLoading])
     return (
-        <div>
-            <h1>This is Articles Grid</h1>
+        <section>
             {isLoaded ? (
             <div>
                 <h1>Loading...</h1>
@@ -18,15 +17,15 @@ function ArticlesGrid ({ articlesList, isLoading }) {
             ) :
             (<Container>
                 <Row>
-                {articlesList.map((article, index) => {
+                {articlesList.map((article) => {
                     return (
-                        <Col><ArticlesSquareCard key={`Article ${index}`} article={article}/></Col>
+                        <Col key={article.article_id}><ArticlesSquareCard key={article.article_id} article={article}/></Col>
                     )
                 })}
                 </Row>
             </Container>)
             }
-        </div>
+        </section>
     )
 }
 
