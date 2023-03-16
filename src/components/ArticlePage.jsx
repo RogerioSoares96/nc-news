@@ -54,21 +54,27 @@ function ArticlePage () {
                 </Card.Body>
             </Card>)
             }
-            {articleComments.map((comment) => {
-                return (
-                    <Card>
-                    <Card.Header as="h5">Comment</Card.Header>
-                    <Card.Body>
-                      <Card.Title>{comment.body}</Card.Title>
-                      <Card.Text>
-                        By : {comment.author}
-                      </Card.Text>
-                      <Button variant="dark">Vote</Button>
-                      <Badge bg="secondary">Number of votes : {comment.votes}</Badge>
-                    </Card.Body>
-                    </Card>
-                )
-            })}
+            {isCommentsLoading ?
+                (<div>
+                <h1>Loading...</h1>
+                <Spinner animation="border" size="xxl"/>
+                </div>) : 
+                (articleComments.map((comment) => {
+                    return (
+                        <Card>
+                        <Card.Header as="h5">Comment</Card.Header>
+                        <Card.Body>
+                          <Card.Title>{comment.body}</Card.Title>
+                          <Card.Text>
+                            By : {comment.author}
+                          </Card.Text>
+                          <Button variant="dark">Vote</Button>
+                          <Badge bg="secondary">Number of votes : {comment.votes}</Badge>
+                        </Card.Body>
+                        </Card>
+                    )
+                }))
+            }
             <Button variant="dark">Post a comment</Button>
         </Container>        
     )
