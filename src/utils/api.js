@@ -28,8 +28,8 @@ export const getSingleArticleComments = (id) => {
     })
 }
 
-export const patchArticle = (id, data) => {
-    return marketAPI.patch(`/api/articles/${id}/`, data).then(({data}) =>{
+export const patchArticleVotes = (id) => {
+    return marketAPI.patch(`/api/articles/${id}/`, {inc_votes : 1}).then(({data}) =>{
         return data.article;
     })
 }

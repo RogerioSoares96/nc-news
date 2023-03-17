@@ -23,7 +23,7 @@ function App() {
       <HeaderNav />
       <Routes>
         <Route path='/' element={<ArticlesListPage articlesList={articlesList} isLoading={isLoading}/>} />
-        <Route path='articles/:id' element={<ArticlePage />} />
+        <Route path='/articles/:id' element={<ArticlePage />} />
       </Routes>
     </main>
   );
