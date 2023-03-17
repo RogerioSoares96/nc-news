@@ -9,13 +9,13 @@ function ArticlePage () {
     const { id } = useParams();
     const [isDataLoading, setIsDataLoading] = useState(false);
     const [articleData, setArticleData] = useState({});
+    const [articleVotes, setArticleVotes] = useState(0);
     const [error, setError] = useState(false);
 
     const handleVotesClick = (event) => {
         event.preventDefault();
-        patchArticleVotes(id).then((articleFromApi) => {
-            setArticleData(articleFromApi)
-        })
+        setArticleVotes(articleVotes + 1)
+        patchArticleVotes(id)
         .catch((error) => {
             setError(error)
         })
@@ -25,6 +25,7 @@ function ArticlePage () {
         setIsDataLoading(true);
         getSingleArticle(id).then((articleFromApi) => {
             setArticleData(articleFromApi);
+            setArticleVotes(articleFromApi.votes)
             setIsDataLoading(false);
         })
     }, [])
@@ -44,7 +45,7 @@ function ArticlePage () {
                         {articleData.body}
                     </Card.Text>
                     <Card.Text>
-                        Votes : <Badge bg="secondary">{articleData.votes}</Badge>
+                        Votes : <Badge bg="secondary">{articleVotes}</Badge>
                     </Card.Text>
                     {error ? <p>Could not update the Votes</p> :
                     <Button variant="dark" onClick={handleVotesClick}>Add a vote 👍</Button>}
