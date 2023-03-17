@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import {getSingleArticleComments, getSingleArticle} from "../../utils/api"
-import {Image, Card, Button, Container, Badge, Spinner} from 'react-bootstrap'
+import { getSingleArticleComments } from "../../utils/api"
+import { Card, Button, Container, Badge, Spinner } from 'react-bootstrap'
 
 
 function CommentsList ({ id }) {
@@ -12,7 +12,7 @@ function CommentsList ({ id }) {
             setArticleComments(articleCommentsFromApi);
             setIsCommentsLoading(false);
         })
-    }, [])
+    }, [id])
 
     return (
         <Container>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getSingleArticle, patchArticleVotes } from "../utils/api";
-import {Image, Card, Button, Container, Badge, Spinner} from 'react-bootstrap'
+import { Image, Card, Button, Container, Badge, Spinner } from 'react-bootstrap'
 import CommentsList from "./subcomponents/CommentsList";
 
 function ArticlePage () {
@@ -11,14 +11,18 @@ function ArticlePage () {
     const [articleData, setArticleData] = useState({});
     const [articleVotes, setArticleVotes] = useState(0);
     const [error, setError] = useState(false);
+    const [isVoted, setIsVoted] = useState(false);
 
     const handleVotesClick = (event) => {
-        event.preventDefault();
-        setArticleVotes(articleVotes + 1)
-        patchArticleVotes(id)
-        .catch((error) => {
-            setError(error)
-        })
+        if (!isVoted) {
+            event.preventDefault();
+            setIsVoted(true)
+            setArticleVotes(articleVotes + 1)
+            patchArticleVotes(id)
+            .catch((error) => {
+                setError(error)
+            })
+        }
     };
 
     useEffect(() => {
@@ -28,7 +32,7 @@ function ArticlePage () {
             setArticleVotes(articleFromApi.votes)
             setIsDataLoading(false);
         })
-    }, [])
+    }, [id])
     return (
         <Container>
             {isDataLoading ? 
@@ -40,7 +44,7 @@ function ArticlePage () {
                 <Card.Header as="h1">{articleData.title}</Card.Header>
                 <Image src={`${articleData.article_img_url}`} rounded/>
                 <Card.Body>
-                    <Card.Text><h3>{articleData.topic}</h3></Card.Text>
+                    <Card.Text>{articleData.topic}</Card.Text>
                     <Card.Text>
                         {articleData.body}
                     </Card.Text>
